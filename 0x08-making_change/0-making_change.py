@@ -2,25 +2,17 @@
 """making Change"""
 
 
+def makeChange(coins, amount):
 
-def makeChange(coins, total):
-    """making Change"""
-    if total <= 0:
+    """making change"""
+    if amount < 1:
         return 0
-    elif total > 0:
-        newList = sorted(coins[:])
-        newList = list(reversed(newList))
-        count = 0
-        value = total + 0
-        index = 0
-        while value >= 0 and (index < len(newList)):
-            if value >= newList[index]:
-                value = value - newList[index]
-                count += 1
-            elif value < newList[index]:
-                index += 1
-        if index == len(newList):
-            if value != 0:
-                return -1
-            elif value == 0:
-                return count
+    coins.sort(reverse=True)
+    count = 0
+    for coin in coins:
+        if amount == 0:
+            break
+        num = amount // coin
+        amount -= num * coin
+        count += num
+    return count if amount == 0 else -1
